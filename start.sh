@@ -1,0 +1,1 @@
+gunicorn --chdir src --reload app:app
