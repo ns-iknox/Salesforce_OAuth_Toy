@@ -1,5 +1,5 @@
 import requests
-
+import json
 from falcon_jinja2 import FalconTemplate
 from os import getenv
 from urllib.parse import urlunparse
@@ -13,7 +13,7 @@ class OAuthCallbackResource(object):
     ft = FalconTemplate()
 
     @ft.render('/callback/index.html')
-    def on_get(_, req, resp):
+    def on_get(self, req, resp):
         # build token url
         token_uri = urlunparse([
             getenv('OAUTH_URI_SCHEME'),
@@ -36,9 +36,18 @@ class OAuthCallbackResource(object):
         # exchange code for access
         token_response = requests.post(token_uri, data=payload).json()
 
+        # use the access token to retrieve some information from the Lightning REST API
+        headers = {'Authorization': 'Bearer ' + token_response['access_token']}
+
+        lightning_response = requests.get(
+            token_response['instance_url'] + '/services/data/v47.0/limits/',
+            headers=headers
+        ).json()
+
         # set the context to use in the template
         resp.context = token_response
         resp.context.update({
             'state': req.get_param('state'),
-            'code': req.get_param('code')
+            'code': req.get_param('code'),
+            'sf_limits': json.dumps(lightning_response, indent=4, sort_keys=True)
         })

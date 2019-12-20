@@ -5,7 +5,7 @@
     <title>Toy SF Oauth - Results</title>
 </head>
 <body>
-
+<h2>First, let's parse the callback data from the query string</h2>
 <p>
     The callback query string included:
     <ul>
@@ -15,6 +15,7 @@
             <pre>{{ code }}</pre></li>
     </ul>
 </p>
+<h2>Next, retrieve the access code and other data from Salesforce's OAuth system</h2>
 <p>
     The server made the token request to Salesforce retrieving:
     <ul>
@@ -29,7 +30,12 @@ Additional documentation about what those mean can be found
 but the TL;DR is that the <strong>access token</strong> can be used to gain access to
 the logged in user's Salesforce data and the <strong>refresh token</strong> can be used
 to generate additional access tokens.
-
+</p>
+<h2>Finally let's use the access token to retrieve some Salesforce data</h2>
+<p>
+    Here's some data about the limits that exist on your salesforce account:
+    <pre>{{ sf_limits }}</pre>
+    This data was retrieved from the REST API, but the credentials should work on any of their systems.
 </p>
 
 </body>
