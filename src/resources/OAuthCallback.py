@@ -44,6 +44,21 @@ class OAuthCallbackResource(object):
             headers=headers
         ).json()
 
+        # Revoke the access code we've been using because security
+        revoke_uri = urlunparse([
+            getenv('OAUTH_URI_SCHEME'),
+            getenv('OAUTH_URI_NETLOC'),
+            getenv('OAUTH_REVOKE_URI_PATH'),
+            None,
+            None,
+            None
+        ])
+
+        requests.post(
+            revoke_uri,
+            data={'token': token_response['access_token']}
+        )
+
         # set the context to use in the template
         resp.context = token_response
         resp.context.update({
