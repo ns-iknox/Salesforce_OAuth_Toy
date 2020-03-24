@@ -33,9 +33,10 @@ to generate additional access tokens.
 </p>
 <h2>Finally let's use the access token to retrieve some Salesforce data</h2>
 <p>
-    Here's some data about the limits that exist on your salesforce account:
-    <pre>{{ sf_limits }}</pre>
-    This data was retrieved from the REST API, but the credentials should work on any of their systems.
+    The following fields have DataType of `location` or `address` and should not be accessed through the BULK API:
+    <pre>{{ bad_fields }}</pre>
+This data was retrieved from the REST API, but the credentials should work on any of their systems.<br>
+    (This data was queried from the following SF objects: {{ sf_objects }}
 </p>
 
 </body>

@@ -11,3 +11,4 @@ Within your virtual environment of choice...
 ### Running the toy
 * Start the local web server `./start`
 * Point your browser to `http://localhost:8000` and follow the provided link!
+* Note: Refreshing the results page will not work (the key is invalidated for security purposes)
