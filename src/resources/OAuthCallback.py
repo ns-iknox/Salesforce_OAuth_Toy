@@ -46,7 +46,7 @@ class OAuthCallbackResource(object):
         bad_fields = []
         for object_name in object_names:
             query = f"""
-            SELECT DeveloperName, DataType
+            SELECT DeveloperName
             FROM EntityParticle
             WHERE DataType IN ('address', 'location')
             AND EntityDefinitionId = '{object_name}'
